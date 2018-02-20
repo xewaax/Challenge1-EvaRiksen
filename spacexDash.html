@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<head>
+		<meta charset="utf-8" />
+		<title>SpaceX</title>
+		
+		<link href="css/spaceStyle.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+<img class="logo" src="images/logo.png" alt="SpaceX" />
+
+<!-- top right-->
+	<div class="destination">
+		<h3>Destination</h3>
+		<h2 class="mars">MARS</h2>
+		
+		<h2>Distance traveled:</h2>
+		<h3>20.000 km</h3>
+		
+		<h2>Distance to destination:</h2>
+		<h3>225.000.000 km</h3>
+	</div>
+<!-- end top right-->
+	
+	
+<!--Speedometer-->
+		<span class="start_speedo">0</span>
+		<span class="end_speedo">40.000</span>
+		<div class="speed">
+		
+		  <h2>Current speed</h2>
+		  <div class="circle">
+			<div class="inner-circle">
+			  <div class="dot-outer" style="transform: rotate(30deg);">
+				<div class="arrow"></div>
+				<div class="dot"></div>
+			  </div>
+			</div>
+			
+			<div class="percent"></div>
+		  </div>
+		 </div>
+
+<!--einde Speedometer-->
+
+
+<!--Raket-->
+		<div class="window">
+		  <div class="burn"></div>
+		</div>
+		<div class="space-shuttle">
+		  <div class="orbiter">
+			<div class="orbiter_window"></div>
+			<div class="orbiter_wing orbiter_wing--left"></div>
+			<div class="orbiter_wing orbiter_wing--right"></div>
+			<div class="orbiter_fin orbiter_fin--left"></div>
+			<div class="orbiter_fin orbiter_fin--right"></div>
+		  </div>
+		  <div class="rocket">
+			<div class="rocket_booster rocket_booster--left"></div>
+			<div class="rocket_booster rocket_booster--right"></div>
+		  </div>
+		</div>
+<!--Einde Raket-->
+
+<!--charts-->
+	<div class="charts">
+			
+		<h2>Fuel</h2>
+			<div class="meter meter--animate  mb">
+  <span class="meter__indicator" style="width: 60%">60%</span>
+</div>
+		<h2>Water</h2>
+			<div class="meter meter--animate  mb">
+  <span class="meter__indicator" style="width: 68%">68%</span>
+</div>
+		<h2>Food</h2>
+			<div class="meter meter--animate  mb">
+  <span class="meter__indicator" style="width: 75%">75%</span>
+</div>
+	</div>
+<!--einde charts-->
+
+<!--Stars-->
+<div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
+<!--einde Stars-->
+
+
+</body>
+
+<script src="js/jquery.min.js"></script>
+<script>
+var needle = document.getElementsByClassName('dot-outer')[0];
+var numPercent = document.getElementsByClassName('percent')[0];
+var setValue = function() {
+  percent = 35890 ; // change this value to a percentage e.g: 32 = 32%
+  fin = (percent/40000) * (180 + 118);
+  needle.style.transform = "rotate(" + fin + "deg)";
+  
+  //From 0 to desired kmh
+  numPercent.innerHTML = "0 kmh";
+ 
+};
+
+window.addEventListener("load", setValue, false);
+//Speedometer increased tot 40.000 kmh
+start();
+var i = 0;
+function start() {
+  setInterval(increase, 50);
+  setTimeout(function() {$(".space-shuttle").animate({
+top: "55%"}, 8000); }, 2000);
+}
+
+function increase() {
+    if (i < 500) {
+      i = i + 12;
+	  
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	
+	if (i >= 500 && i < 2000) {
+      i = i + 28;
+	 
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	
+	if (i >= 2000 && i < 8000) {
+      i = i + 70;
+	
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	
+	if (i >= 8000 && i < 25830) {
+      i = i + 450;
+	  
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	if (i >= 25830 && i < 35000) {
+      i = i + 100;
+	  
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	if (i >= 35000 && i < 39440) {
+      i = i + 45;
+	  
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	if (i >= 39440 && i < 40212) {
+      i = i + 1;
+	  
+      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }
+	
+//Einde speedometer increase
+	
+	
+	//Stages
+	/*var burners = $(".burn");
+burners.removeClass("burn").addClass("burn_last");
+var window_ = $(".window");
+window_.removeClass("window").addClass("window_last");
+*/
+
+}
+
+</script>
