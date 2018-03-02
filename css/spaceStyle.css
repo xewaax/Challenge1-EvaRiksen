@@ -25,6 +25,7 @@ h2 {
 .mars {
 	font-size: 80pt;
 	line-height: 0.01;
+	margin-top:60px;
 }
 
 h3 {
@@ -32,6 +33,13 @@ h3 {
 	font-family: poppins, sans-serif;
 }
 
+.smallH3 {
+	line-height:0;
+}
+
+.smallGap {
+	height:5px;
+}
 /*top right*/
 
 .destination {
