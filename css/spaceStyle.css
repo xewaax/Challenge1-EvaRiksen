@@ -163,7 +163,7 @@ h3 {
   border-radius: 50%;
   padding: 10px;
   position: absolute;
-  transition: all 30s;
+  transition: all 35s;
 }
 
 .speed .inner-circle .dot {
@@ -289,6 +289,48 @@ html {
     
 /*Starry background*/
 
+
+/*g-force chart */
+.chart-wrapper {
+	width:100%;
+	height:100%;
+	left: -600px;
+    top: 30%;
+	position: absolute;
+}
+
+path {
+	
+	/* stroke-width: 5px; */
+	cursor: pointer;
+	transition: fill 250ms;
+	&:hover {
+		/* stroke-width: 10px; */
+		fill: #fff;
+	}
+}
+
+text {
+	font-size: .8em;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+}
+
+polyline {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 2px;
+	stroke-dasharray: 5px;
+}
+.g-force{
+	position: absolute;
+    font-size: 3em;
+    color: #fff;
+    font-weight: 600;
+    bottom: 40px;
+    left: 130px;
+}
+/* //g-force chart*/
 
 /*Rocket*/
 body {
@@ -799,3 +841,15 @@ body {
 }
 /*Rocket*/
 
+/* iPads  ----------- */
+@media only screen and (min-width : 600px) {
+/* Styles */
+}
+/* Laptops  ----------- */
+@media only screen and (min-width : 900px) {
+/* Styles */
+}
+/* Bigger screens  ----------- */
+@media only screen and (min-width : 1200px) {
+/* Styles */
+}
