@@ -64,6 +64,7 @@ h3 {
 
 
 .meter {
+  margin-top:-18px;
   position: relative;
   height: 15px;
   background-color: #eeeeee;

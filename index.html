@@ -17,10 +17,10 @@
 		<h2 class="mars">MARS</h2>
 		
 		<h2>Distance traveled:</h2>
-		<h3 class="smallH3">20.000 km</h3>
+		<h3 class="smallH3"><span id="distTraveled">0</span> km</h3>
 		<div class="smallGap"></div>
 		<h2>Distance to destination:</h2>
-		<h3 class="smallH3">225.000.000 km</h3>
+		<h3 class="smallH3"><span id="distDestination">225.000.000</span> km</h3>
 	</div>
 <!-- end top right-->
 	
@@ -70,15 +70,15 @@
 			
 		<h2>Fuel</h2>
 			<div class="meter meter--animate  mb">
-  <span class="meter__indicator" style="width: 60%">60%</span>
+  <span id="fuelMeter" class="meter__indicator" style="width: 100%"></span>
 </div>
 		<h2>Water</h2>
 			<div class="meter meter--animate  mb">
-  <span class="meter__indicator" style="width: 68%">68%</span>
+  <span id="waterMeter"  class="meter__indicator" style="width: 100%"></span>
 </div>
 		<h2>Food</h2>
 			<div class="meter meter--animate  mb">
-  <span class="meter__indicator" style="width: 75%">75%</span>
+  <span id="foodMeter" class="meter__indicator" style="width: 100%"></span>
 </div>
 	</div>
 <!--einde charts-->
@@ -96,6 +96,8 @@
 <script>
 var needle = document.getElementsByClassName('dot-outer')[0];
 var numPercent = document.getElementsByClassName('percent')[0];
+var distTraveled = document.getElementById('distTraveled');
+var distDestination = document.getElementById('distDestination');
 var setValue = function() {
   percent = 35890 ; // change this value to a percentage e.g: 32 = 32%
   fin = (percent/40000) * (180 + 118);
@@ -109,56 +111,122 @@ var setValue = function() {
 window.addEventListener("load", setValue, false);
 //Speedometer increased tot 40.000 kmh
 start();
-var i = 0;
+
+//To check percentage style of meters
+$.fn.widthPerc = function(){
+    var parent = this.parent();
+    return ~~((this.width()/parent.width())*100)+"%";
+}
+
 function start() {
-  setInterval(increase, 50);
+  setInterval(increaseSpeedo, 50);
+  setInterval(increaseDistTraveled, 50);
+  setInterval(decreaseDistDestination, 50);
+  setInterval(changeColorMeter, 1000);
+  setTimeout(function() { $('#fuelMeter').animate({ width:'15%' }, 50000); }, 2000);
+  setTimeout(function() { $('#waterMeter').animate({ width:'25%' }, 80000); }, 2500);
+  setTimeout(function() { $('#foodMeter').animate({ width:'5%' }, 90000); }, 3000);
   setTimeout(function() {$(".space-shuttle").animate({
 top: "55%"}, 8000); }, 2000);
 }
+var maxSpeed = false;
+var maxSpeedToggle = false;
+var speedoKMH = 0;
+var distTraveledKMH = 0;
+var distDestinationKMH = 225000000;
+function increaseSpeedo() {
+	
+    if (speedoKMH < 500) {
+      speedoKMH = speedoKMH + 12;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 500 && speedoKMH < 2000) {
+      speedoKMH= speedoKMH+ 28;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 2000 && speedoKMH < 8000) {
+      speedoKMH = speedoKMH + 70;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 8000 && speedoKMH < 25830) {
+      speedoKMH = speedoKMH + 450;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 25830 && speedoKMH < 35000) {
+      speedoKMH = speedoKMH + 100;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 35000 && speedoKMH < 39440) {
+      speedoKMH = speedoKMH + 45;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH >= 39440 && speedoKMH < 40212) {
+      speedoKMH = speedoKMH + 1;
+      numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+    }else if (speedoKMH == 40212) {
+	  maxSpeed = true;
+	  clearInterval(increaseSpeedo);
+	  setInterval(increaseSpeedo, 1000);
+	}
+	
+	if (maxSpeed) {
+	  maxSpeedToggle = !maxSpeedToggle;
+	  if (maxSpeedToggle) {
+		  var randNumb = Math.floor((Math.random() * 3) + 1);
+		  speedoKMH = speedoKMH + randNumb;
+		  numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
 
-function increase() {
-    if (i < 500) {
-      i = i + 12;
-	  
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
+	  }else{
+		  var randNumb = Math.floor((Math.random() * 3) + 1);
+		  speedoKMH = speedoKMH - randNumb;
+		  numPercent.innerHTML = speedoKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
+	  }
+	}
 	
-	if (i >= 500 && i < 2000) {
-      i = i + 28;
-	 
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	
-	if (i >= 2000 && i < 8000) {
-      i = i + 70;
-	
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	
-	if (i >= 8000 && i < 25830) {
-      i = i + 450;
-	  
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	if (i >= 25830 && i < 35000) {
-      i = i + 100;
-	  
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	if (i >= 35000 && i < 39440) {
-      i = i + 45;
-	  
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	if (i >= 39440 && i < 40212) {
-      i = i + 1;
-	  
-      numPercent.innerHTML = i.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " kmh";
-    }
-	
+}	
 //Einde speedometer increase
 	
+//Distance traveled
+function increaseDistTraveled() {
+	 if (distTraveledKMH < 500) {
+      distTraveledKMH = distTraveledKMH + 1;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 500 && distTraveledKMH < 2000) {
+      distTraveledKMH = distTraveledKMH + 2;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 2000 && distTraveledKMH < 8000) {
+      distTraveledKMH = distTraveledKMH + 7;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 8000 && distTraveledKMH < 25830) {
+      distTraveledKMH = distTraveledKMH + 45;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 25830 && distTraveledKMH < 35000) {
+      distTraveledKMH = distTraveledKMH + 50;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 35000 && distTraveledKMH < 39440) {
+      distTraveledKMH = distTraveledKMH + 70;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }else if (distTraveledKMH >= 39440) {
+      distTraveledKMH = distTraveledKMH + 102;
+      distTraveled.innerHTML = distTraveledKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+}
+//End distance traveled
 	
+//Distance to destination
+function decreaseDistDestination() {
+	  distDestinationKMH = 225000000 - distTraveledKMH;
+	  distDestination.innerHTML = distDestinationKMH.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+//End Distance to destination
+
+//Change color of meters
+function changeColorMeter() {
+	$('.meter__indicator').each(function() {
+		if ($(this).widthPerc() == '80%') {
+			console.log("80%");
+		}else if ($(this).widthPerc() == '60%') {
+			console.log("60%");
+			
+		}
+	});
+}
+//End change color of meters
+
 	//Stages
 	/*var burners = $(".burn");
 burners.removeClass("burn").addClass("burn_last");
@@ -166,6 +234,6 @@ var window_ = $(".window");
 window_.removeClass("window").addClass("window_last");
 */
 
-}
+
 
 </script>
