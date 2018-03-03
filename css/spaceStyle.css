@@ -62,40 +62,24 @@ h3 {
 	padding-left: 50px;
 }
 
-
-.meter {
-  margin-top:-18px;
-  position: relative;
-  height: 15px;
-  background-color: #eeeeee;
-  border-radius: 20px;
-}
-.meter__indicator {
-  position: absolute;
-  height: 100%;
-  color: transparent;
-  background: #1ABC9C;
+.meterText {
+	
+	font-weight:600;
+	margin:0;
+	padding:0;
+	font-size:0.8em !important;
+	line-height:0;
 }
 
-.meter--large {
-  height: 20px;
-  
+.meterText.green h2 {
+	color:#1ABC9C;
 }
-
-.meter--animate .meter__indicator {
-  background: transparent;
+.meterText.orange h2 {
+	color:#FDCD5F;
 }
-.meter--animate .meter__indicator:before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background: #1ABC9C;
-  content: '';
-  -webkit-animation: grow-horizontal 1s ease-out;
-          animation: grow-horizontal 1s ease-out;
+.meterText.red h2 {
+	color:#ED5466;
 }
-
 @-webkit-keyframes grow-horizontal {
   0% {
     width: 0;
@@ -843,11 +827,56 @@ body {
 
 /* iPads  ----------- */
 @media only screen and (min-width : 600px) {
+	.meterText {
+		display:none;
+	}
+	.meter {
+		margin-top: -18px;
+		position: relative;
+		height: 15px;
+		background-color: #eeeeee;
+		border-radius: 20px;
+	}
+	.meter__indicator {
+  position: absolute;
+  height: 100%;
+  color: transparent;
+  background: #1ABC9C;
+}
+
+.meter--large {
+  height: 20px;
+  
+}
+
+.meter--animate .meter__indicator {
+  background: transparent;
+}
+.meter--animate .meter__indicator:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: #1ABC9C;
+  content: '';
+  -webkit-animation: grow-horizontal 1s ease-out;
+          animation: grow-horizontal 1s ease-out;
+}
+
+
+/* show rocket */
+
+.space-shuttle {
+	display:block !important;
+}
 /* Styles */
 }
 /* Laptops  ----------- */
 @media only screen and (min-width : 900px) {
 /* Styles */
+.window {
+	display:block !important;
+}
 }
 /* Bigger screens  ----------- */
 @media only screen and (min-width : 1200px) {
