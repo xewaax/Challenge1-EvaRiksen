@@ -102,8 +102,11 @@
 <!--einde charts-->
 
 <!--g-force chart-->
-<div class="chart-wrapper"></div>
-<div class="g-force" style="display:none;"><h2>3G</h2></div>
+<div class="g-forceChart">
+	<h2 class="textG">G-force</h2>
+	<div class="chart-wrapper"></div>
+	<div class="g-force" style="display:none;"><h2>3G</h2></div>
+</div>
 <!--//g-force-->
 
 <!--Stars-->
@@ -145,7 +148,11 @@ $.fn.widthPerc = function(){
 
 function start() {
   speedoInterval = setInterval(increaseSpeedo, 50);
-  setTimeout(function() {$('.g-force').fadeIn(2000); }, 1500);
+  if ($(window).width() >= 600) {
+	setTimeout(function() {$('.g-force').fadeIn(2000); }, 1500);
+  }else{
+	$('.g-force').fadeIn(2000); 
+  }
   setInterval(increaseDistTraveled, 50);
   setInterval(decreaseDistDestination, 50);
   setInterval(changeColorMeter, 1000);
@@ -485,6 +492,8 @@ let replay = () => {
   setTimeout(draw, 800)
 
 }
+
+
 // end g-force
 
 	//Stages
