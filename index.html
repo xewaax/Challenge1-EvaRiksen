@@ -401,8 +401,9 @@ let outerArc = d3.svg.arc()
 // d3 color generator
 // let c10 = d3.scale.category10();
 
-let pie = d3.layout.pie()
-  .value(d => d)
+var pie = d3.layout.pie().value(function (d) {
+  return d;
+});
 
 let draw = function() {
 
