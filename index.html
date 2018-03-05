@@ -385,7 +385,7 @@ let svg = d3.select('.chart-wrapper').append('svg')
   .append('g')
 
 svg.attr({
-  'transform': `translate(${width / 2}, ${height / 2})`
+  'transform': 'translate(' + width / 2 + ', ' + height / 2 + ')'
 });
 
 // for drawing slices
